@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ProfilActivity.class));
                 return true;
             case R.id.buttoncredits:
-                startActivity(new Intent(this, creditActivity.class));
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.titrecredits);
                 return true;
             case R.id.buttonparametres:
                 startActivity(new Intent(this, classtest.class));
