@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:gravity="center"
+        android:text="Profil"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <ImageButton
+        android:id="@+id/imageButtonprofil"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:background="@color/white_background"
+        app:srcCompat="@mipmap/hentaiheaven_round" />
+
+    <EditText
+        android:id="@+id/editTextname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/editTextemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:text="email" />
+
+    <EditText
+        android:id="@+id/editTextphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        android:text="phone" />
+
+    <Button
+        android:id="@+id/boutonsauvegarde"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sauvegarde" />
+</LinearLayout>

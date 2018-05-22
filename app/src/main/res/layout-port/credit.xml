@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:gravity="center"
+        android:text="credits"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:gravity="top|center"
+        android:text="notre objectif est de permettre au gens de garder un suivis de lleurs comptes entre amis, cependant cela n'est pas tout. Un de nos objectif est de mettre en place un systeme d'evenement: offrant la possibilité a un groupe de personne d'organiser leurs dépenses lors d'un voyage."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+</LinearLayout>
