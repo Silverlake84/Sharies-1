@@ -67,19 +67,12 @@ public class GetSeriesServices extends IntentService {
             final String action = intent.getAction();
             if (ACTION_get_all_series.equals(action)) {
 
-                handleActionget_all_series();
+                handleActionSeries();
             }
         }
     }
 
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionget_all_series() {
-        // TODO: Handle action get_all_series
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+
 
     private void handleActionSeries(){
         Log.d("oui", "Thread service name:"+ Thread.currentThread().getName());

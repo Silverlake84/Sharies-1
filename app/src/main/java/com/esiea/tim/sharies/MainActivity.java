@@ -44,19 +44,23 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static RecyclerView rv;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.d("testdebut", "onCreate: fonctionne");
 
-        rv = (RecyclerView) findViewById(R.id.rv_series);
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rv = (RecyclerView) findViewById(R.id.rv_series);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+
+        rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
+
+
 
         android.content.IntentFilter intentFilter = new android.content.IntentFilter(MainActivity.SERIES_UPDATE);
         android.support.v4.content.LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), intentFilter);
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public class SeriesUpdate extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("oui", getIntent().getAction());
+            Log.d("onReiceve", getIntent().getAction());
 
 
         }
