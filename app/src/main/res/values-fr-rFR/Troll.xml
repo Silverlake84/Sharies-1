@@ -4,4 +4,5 @@
     <string name="ajoutdette">ajouter une dette majolie</string>
     <string name="ajoutevenement">ajouter un evenement bitch</string>
     <string name="titrecredits">Crédits</string>
+    <string name="creditmessage">Cette application a été développée par Tim Colin et Allan Pau</string>
 </resources>

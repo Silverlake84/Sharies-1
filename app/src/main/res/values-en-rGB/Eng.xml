@@ -4,4 +4,5 @@
     <string name="ajoutdette">Add a dept</string>
     <string name="ajoutevenement">Add an event</string>
     <string name="titrecredits">Credits</string>
+    <string name="creditmessage">This application has been fucking developed by Tim Colin and Allan Pau</string>
 </resources>
