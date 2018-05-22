@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.buttoncredits:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.titrecredits);
-                builder.setMessage(R.string.creditmessage);
+                builder.setMessage(R.string.creditmessage); // Verif que ça marche
                 return true;
             case R.id.buttonparametres:
                 startActivity(new Intent(this, classtest.class));
