@@ -6,9 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +31,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 import android.os.Bundle;
@@ -46,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static RecyclerView rv;
 
+    public class SeriesUpdate extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("onReiceve", getIntent().getAction());
+            rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
+        }
+    }
+    public static final String SERIES_UPDATE = "com.octip.cours.inf.SERIES_UPDATE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,14 +67,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), new IntentFilter(SERIES_UPDATE));
+
         rv = (RecyclerView) findViewById(R.id.rv_series);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
-        rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
-        android.content.IntentFilter intentFilter = new android.content.IntentFilter(MainActivity.SERIES_UPDATE);
-        android.support.v4.content.LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), intentFilter);
 
         GetSeriesServices.startActionSeries(this);
         Log.d("test", "onCreate: fin ");
@@ -69,10 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        new MenuInflater(this).inflate(R.menu.menu_main, menu);
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
-
 
     }
     @Override
@@ -94,17 +104,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static final String SERIES_UPDATE = "com.octip.cours.inf.SERIES_UPDATE";
-    public class SeriesUpdate extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("onReiceve", getIntent().getAction());
-        }
-    }
-
     public org.json.JSONArray getSeriesFromFile(){
+        Log.d("test", "getSeriesFromFile: en  marche");
         try{
-            java.io.InputStream is = new java.io.FileInputStream(getCacheDir() + "/" +"series.json");
+            InputStream is = new FileInputStream(getCacheDir() + "/" +"series.json");
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();

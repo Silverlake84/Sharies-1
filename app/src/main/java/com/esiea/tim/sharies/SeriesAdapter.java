@@ -14,6 +14,8 @@ import junit.framework.Test;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import static android.content.ContentValues.TAG;
+
 class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
 
     private JSONArray series;
@@ -26,10 +28,11 @@ class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
 
     @Override
     public SeriesHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+        Log.d("test", "onCreateViewHolder: debut");
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(android.R.layout.activity_list_item, parent, false);
-
+        Log.d("test", "onCreateViewHolder: fin");
         return (new SeriesHolder(view));
 
     }
@@ -40,7 +43,7 @@ class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
         try {
             series.getJSONObject(position);
             series.getString(position);
-            holder.name.setText(series.get(position).getString("name"));
+            //holder.name.setText(series.get(position).getString("name"));
 
         } catch (JSONException e) {
             e.printStackTrace();
