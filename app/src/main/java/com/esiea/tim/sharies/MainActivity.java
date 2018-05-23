@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("testdebut", "onCreate: fonctionne");
+        Log.d("test", "onCreate: debut");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
-        
+
         android.content.IntentFilter intentFilter = new android.content.IntentFilter(MainActivity.SERIES_UPDATE);
         android.support.v4.content.LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), intentFilter);
 
-        GetSeriesServices.startActionget_all_series(this);
-        Log.d("testfin", "onCreate: FIN ");
+        GetSeriesServices.startActionSeries(this);
+        Log.d("test", "onCreate: fin ");
     }
 
     @Override

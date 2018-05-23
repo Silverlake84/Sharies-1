@@ -27,10 +27,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class GetSeriesServices extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_get_all_series = "com.example.tim.geretesdettesencule.action.ACTION_get_all_series";
 
-
+    private static final String ACTION_get_all_series = "com.esiea.tim.sheries.action.ACTION_get_all_series";
 
 
     public GetSeriesServices() {
@@ -45,12 +43,15 @@ public class GetSeriesServices extends IntentService {
      */
 
 
-    public static void startActionget_all_series(Context context) {
+    public static void startActionSeries(Context context) {
+        Log.d("test", "startActionSeries: debut");
         Intent intent = new Intent(context, GetSeriesServices.class);
         intent.setAction(ACTION_get_all_series);
 
         context.startService(intent);
+        Log.d("test", "startActionSeries: fin");
     }
+
 
 
     @Override
@@ -67,7 +68,7 @@ public class GetSeriesServices extends IntentService {
 
 
     private void handleActionSeries(){
-        Log.d("oui", "Thread service name:"+ Thread.currentThread().getName());
+        Log.d("handleActionService", "Thread service name:"+ Thread.currentThread().getName());
         URL url = null;
         try
 
@@ -80,6 +81,7 @@ public class GetSeriesServices extends IntentService {
                 copyInputStreamToFile(conn.getInputStream(),
                         new File(getCacheDir(), "series.json"));
                 Log.d("handleActionSeries", "Series json downloaded !");
+
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
@@ -89,6 +91,7 @@ public class GetSeriesServices extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(MainActivity.SERIES_UPDATE));
     }
     private void copyInputStreamToFile(InputStream in, File file){
+        Log.d("test", "copyInputStreamToFile: debut");
         try{
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
@@ -101,6 +104,7 @@ public class GetSeriesServices extends IntentService {
         }catch(Exception e){
             e.printStackTrace();
         }
+        Log.d("test", "copyInputStreamToFile: fin");
     }
 
 }
