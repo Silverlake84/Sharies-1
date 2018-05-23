@@ -40,7 +40,7 @@ class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
         try {
             series.getJSONObject(position);
             series.getString(position);
-            holder.name.setText(series.getString(position));
+            holder.name.setText(series.get(position).getString("name"));
 
         } catch (JSONException e) {
             e.printStackTrace();
