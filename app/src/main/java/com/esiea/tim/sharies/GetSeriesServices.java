@@ -27,10 +27,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class GetSeriesServices extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_get_all_series = "com.example.tim.geretesdettesencule.action.ACTION_get_all_series";
 
-
+    private static final String ACTION_get_all_series = "com.esiea.tim.sheries.action.ACTION_get_all_series";
 
 
     public GetSeriesServices() {
@@ -44,20 +42,15 @@ public class GetSeriesServices extends IntentService {
      * @see IntentService
      */
 
-    // TODO: Customize helper method
-    public static void startActionget_all_series(Context context) {
+
+    public static void startActionSeries(Context context) {
+        Log.d("test", "startActionSeries: debut");
         Intent intent = new Intent(context, GetSeriesServices.class);
         intent.setAction(ACTION_get_all_series);
 
         context.startService(intent);
+        Log.d("test", "startActionSeries: fin");
     }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
 
 
 
@@ -67,34 +60,28 @@ public class GetSeriesServices extends IntentService {
             final String action = intent.getAction();
             if (ACTION_get_all_series.equals(action)) {
 
-                handleActionget_all_series();
+                handleActionSeries();
             }
         }
     }
 
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionget_all_series() {
-        // TODO: Handle action get_all_series
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+
 
     private void handleActionSeries(){
-        Log.d("oui", "Thread service name:"+ Thread.currentThread().getName());
+        Log.d("handleActionService", "Thread service name:"+ Thread.currentThread().getName());
         URL url = null;
         try
 
         {
-            url = new URL("http://api.themoviedb.org/3/movie/550?api_key=7b358b3487f8168783db21764c6f1a2e");
+            url = new URL("http://files.tmdb.org/p/exports/movie_ids_04_28_2017.json.gz");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()) {
                 copyInputStreamToFile(conn.getInputStream(),
                         new File(getCacheDir(), "series.json"));
-                Log.d("oui", "Series json downloaded !");
+                Log.d("handleActionSeries", "Series json downloaded !");
+
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
@@ -104,6 +91,7 @@ public class GetSeriesServices extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(MainActivity.SERIES_UPDATE));
     }
     private void copyInputStreamToFile(InputStream in, File file){
+        Log.d("test", "copyInputStreamToFile: debut");
         try{
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
@@ -116,6 +104,7 @@ public class GetSeriesServices extends IntentService {
         }catch(Exception e){
             e.printStackTrace();
         }
+        Log.d("test", "copyInputStreamToFile: fin");
     }
 
 }

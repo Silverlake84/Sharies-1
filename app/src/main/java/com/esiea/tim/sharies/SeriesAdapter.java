@@ -3,6 +3,7 @@ package com.esiea.tim.sharies;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,20 +30,22 @@ class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(android.R.layout.activity_list_item, parent, false);
 
-        return new SeriesHolder(view);
+        return (new SeriesHolder(view));
 
     }
 
     @Override
     public void onBindViewHolder(SeriesHolder holder, int position) {
+        Log.d("test", "onBindViewHolder: debut");
         try {
             series.getJSONObject(position);
             series.getString(position);
-            holder.name.setText(series.getString(position));
+            holder.name.setText(series.get(position).getString("name"));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("test", "onBindViewHolder: fin");
     }
 
     @Override
@@ -61,7 +64,7 @@ class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
         public SeriesHolder(View itemView) {
             super(itemView);
 
-            name = (TextView) itemView.findViewById(R.id.rv_series);
+            name = (TextView) itemView.findViewById(R.id.rv_series_element_name);
         }
     }
 
