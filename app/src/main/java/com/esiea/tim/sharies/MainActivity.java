@@ -88,16 +88,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
+
             case R.id.bouttonprofile:
                 startActivity(new Intent(this, ProfilActivity.class));
                 return true;
+
             case R.id.buttoncredits:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.titrecredits);
-                builder.setMessage(R.string.creditmessage); // Verif que ça marche
+                builder.setMessage(R.string.creditmessage);
+                builder.setNegativeButton(R.string.boutoncredits, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Does Nothing
+                    }
+                });
+                builder.show();
                 return true;
+
             case R.id.buttonparametres:
-                startActivity(new Intent(this, classtest.class));
+                startActivity(new Intent(this, ParametersActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

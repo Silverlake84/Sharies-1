@@ -32,6 +32,11 @@
     <service
         android:name="com.esiea.tim.sharies.GetSeriesServices"
         android:exported="false"></service>
+
+        <activity android:name=".ParametersActivity"
+            android:label="@string/Settings">
+            
+        </activity>
     </application>
 
 
