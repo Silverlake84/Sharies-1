@@ -44,7 +44,7 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rv;
+    private static RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +59,12 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
-
-
-
+        
         android.content.IntentFilter intentFilter = new android.content.IntentFilter(MainActivity.SERIES_UPDATE);
         android.support.v4.content.LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), intentFilter);
 
         GetSeriesServices.startActionget_all_series(this);
-
+        Log.d("testfin", "onCreate: FIN ");
     }
 
     @Override
@@ -99,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("onReiceve", getIntent().getAction());
-
-
         }
     }
 
@@ -122,5 +118,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
-

@@ -7,15 +7,15 @@
         android:id="@+id/bouttonprofile"
         android:title="Profile"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        tools:icon="@drawable/mr_button_light" />
+        />
     <item
         android:id="@+id/buttonparametres"
         android:title="Parametres"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        tools:icon="@drawable/mr_button_light"></item>
+         />
     <item
         android:id="@+id/buttoncredits"
         android:title="Crédits"
         app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        tools:icon="@drawable/mr_button_light" />
+         />
 </menu>

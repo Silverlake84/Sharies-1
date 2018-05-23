@@ -44,21 +44,13 @@ public class GetSeriesServices extends IntentService {
      * @see IntentService
      */
 
-    // TODO: Customize helper method
+
     public static void startActionget_all_series(Context context) {
         Intent intent = new Intent(context, GetSeriesServices.class);
         intent.setAction(ACTION_get_all_series);
 
         context.startService(intent);
     }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-
 
 
     @Override
@@ -80,14 +72,14 @@ public class GetSeriesServices extends IntentService {
         try
 
         {
-            url = new URL("http://api.themoviedb.org/3/movie/550?api_key=7b358b3487f8168783db21764c6f1a2e");
+            url = new URL("http://files.tmdb.org/p/exports/movie_ids_04_28_2017.json.gz");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()) {
                 copyInputStreamToFile(conn.getInputStream(),
                         new File(getCacheDir(), "series.json"));
-                Log.d("oui", "Series json downloaded !");
+                Log.d("handleActionSeries", "Series json downloaded !");
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
