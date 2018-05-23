@@ -18,30 +18,14 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+
 public class GetSeriesServices extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
 
     private static final String ACTION_get_all_series = "com.esiea.tim.sheries.action.ACTION_get_all_series";
-
 
     public GetSeriesServices() {
         super("GetSeriesServices");
     }
-
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-
 
     public static void startActionSeries(Context context) {
         Log.d("test", "startActionSeries: debut");
@@ -51,8 +35,6 @@ public class GetSeriesServices extends IntentService {
         context.startService(intent);
         Log.d("test", "startActionSeries: fin");
     }
-
-
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -65,18 +47,16 @@ public class GetSeriesServices extends IntentService {
         }
     }
 
-
-
     private void handleActionSeries(){
-        Log.d("handleActionService", "Thread service name:"+ Thread.currentThread().getName());
+        Log.d("test", "Thread service name:"+ Thread.currentThread().getName());
         URL url = null;
         try
-
         {
-            url = new URL("http://files.tmdb.org/p/exports/movie_ids_04_28_2017.json.gz");
+            url = new URL("http://binouze.fabrigli.fr/bieres.json");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
+            Log.d("test", "handleActionSeries: apres connect");
             if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()) {
                 copyInputStreamToFile(conn.getInputStream(),
                         new File(getCacheDir(), "series.json"));
@@ -89,7 +69,9 @@ public class GetSeriesServices extends IntentService {
             e.printStackTrace();
         }
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(MainActivity.SERIES_UPDATE));
+        Log.d("test", "handleActionSeries: fin");
     }
+
     private void copyInputStreamToFile(InputStream in, File file){
         Log.d("test", "copyInputStreamToFile: debut");
         try{
