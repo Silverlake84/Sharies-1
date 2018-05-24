@@ -30,7 +30,7 @@
     <activity android:name="com.esiea.tim.sharies.classtest" />
 
     <service
-        android:name="com.esiea.tim.sharies.GetSeriesServices"
+        android:name=".GetSeriesServices"
         android:exported="false"></service>
 
         <activity android:name=".ParametersActivity"

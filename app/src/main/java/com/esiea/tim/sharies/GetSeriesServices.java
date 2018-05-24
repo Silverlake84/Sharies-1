@@ -52,15 +52,17 @@ public class GetSeriesServices extends IntentService {
         URL url = null;
         try
         {
-            url = new URL("http://binouze.fabrigli.fr/bieres.json");
+            url = new URL("https://api.deezer.com/user/5906315/playlists");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             Log.d("test", "handleActionSeries: apres connect");
             if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()) {
-                copyInputStreamToFile(conn.getInputStream(),
-                        new File(getCacheDir(), "series.json"));
+                File file = new File(getCacheDir(), "series.json");
+                copyInputStreamToFile(conn.getInputStream(),file);
                 Log.d("handleActionSeries", "Series json downloaded !");
+
+                Log.d("test", "handleActionSeries: "+ file);
 
             }
         }catch(MalformedURLException e){
