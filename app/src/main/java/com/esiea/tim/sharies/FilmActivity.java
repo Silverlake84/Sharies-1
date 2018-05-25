@@ -81,7 +81,7 @@ public class FilmActivity extends AppCompatActivity {
                 r1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 dm.enqueue(r1);
-                Toast.makeText(getApplicationContext(),"telechargement effectué",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),R.string.dl,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -95,7 +95,7 @@ public class FilmActivity extends AppCompatActivity {
                 r1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 dm.enqueue(r1);
-                Toast.makeText(getApplicationContext(),"telechargement effectué",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),R.string.dl, Toast.LENGTH_LONG).show();
 
             }
         });
