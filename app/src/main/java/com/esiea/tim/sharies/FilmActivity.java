@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class FilmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,12 @@ public class FilmActivity extends AppCompatActivity {
         TextView datedesortie = findViewById(R.id.datedesortie);
         TextView note = findViewById(R.id.note);
 
-        //image.setImageDrawable();
+        Picasso.with(this).load("https://image.tmdb.org/t/p/w500"+poster_path).into(image);
         titre.setText(title);
         description.setText(overview);
         datedesortie.setText(release_date);
         note.setText(String.valueOf(vote_average));
+
     }
 
     @Override
