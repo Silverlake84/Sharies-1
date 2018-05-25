@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.ShareCompat;
@@ -102,9 +103,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
 
-            case R.id.bouttonprofile:
-                startActivity(new Intent(this, ProfilActivity.class));
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
+
 
             case R.id.buttoncredits:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);

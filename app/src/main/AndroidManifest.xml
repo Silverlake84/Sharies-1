@@ -6,8 +6,9 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_cerise"
+
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -19,16 +20,10 @@
         </intent-filter>
     </activity>
 
-    <activity
-        android:name="com.esiea.tim.sharies.ProfilActivity"
-        android:parentActivityName=".MainActivity" />
-    <activity
-        android:name="com.esiea.tim.sharies.creditActivity"
-        android:parentActivityName=".MainActivity" />
-
-    <activity android:name=".SecondeActivity" />
-    <activity android:name=".classtest" />
-        <activity android:name=".FilmActivity"/>
+        <activity
+            android:name=".FilmActivity"
+            android:parentActivityName=".MainActivity"
+            />
 
 
     <service
@@ -36,7 +31,7 @@
         android:exported="false"></service>
 
         <activity android:name=".ParametersActivity"
-            android:label="@string/Settings">
+            android:parentActivityName=".MainActivity">
             
         </activity>
         <meta-data

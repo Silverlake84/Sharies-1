@@ -1,7 +1,11 @@
 package com.esiea.tim.sharies;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,5 +32,23 @@ public class FilmActivity extends AppCompatActivity {
         description.setText(overview);
         datedesortie.setText(release_date);
         note.setText(String.valueOf(vote_average));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("test", "onCreateOptionsMenu: appel");
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_film, menu);
+        return true;
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
