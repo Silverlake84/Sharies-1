@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sharies</string>
     <string name="ajoutdette">ajouter une dette majolie</string>
@@ -9,4 +10,6 @@
     <string name="boutonparametresanglais">Anglais</string>
     <string name="boutonparametresfrancais">Français</string>
     <string name="Settings">Paramètres</string>
+    <string name="dl">téléchargement</string>
+    <string name="API">"https://api.themoviedb.org/3/movie/upcoming?api_key=7b358b3487f8168783db21764c6f1a2e&amp;language=fr-FR&amp;page=1"</string>
 </resources>

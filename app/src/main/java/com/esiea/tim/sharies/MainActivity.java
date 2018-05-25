@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             case R.id.buttoncredits:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.titrecredits);
-                builder.setMessage(R.string.creditmessage);
+                builder.setMessage(R.string.boutoncredits);
                 builder.setNegativeButton(R.string.boutoncredits, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

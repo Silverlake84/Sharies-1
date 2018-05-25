@@ -52,7 +52,7 @@ public class GetSeriesServices extends IntentService {
         URL url = null;
         try
         {
-            url = new URL("https://api.themoviedb.org/3/movie/upcoming?api_key=7b358b3487f8168783db21764c6f1a2e&language=fr-FR&page=1");
+            url = new URL(String.valueOf(R.string.API));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
