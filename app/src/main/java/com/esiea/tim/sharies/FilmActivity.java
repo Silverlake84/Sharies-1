@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -76,8 +77,11 @@ public class FilmActivity extends AppCompatActivity {
 
                 Uri url = Uri.parse("https://image.tmdb.org/t/p/w500"+poster_path);
                 DownloadManager.Request r1 = new DownloadManager.Request(url);
-                r1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "poster-Red_Sparrow");
-
+                r1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "poster");
+                r1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                dm.enqueue(r1);
+                Toast.makeText(getApplicationContext(),"telechargement effectué",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -87,7 +91,11 @@ public class FilmActivity extends AppCompatActivity {
 
                 Uri url = Uri.parse("https://image.tmdb.org/t/p/w500"+backdrop_path);
                 DownloadManager.Request r1 = new DownloadManager.Request(url);
-                r1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "bg-Red_Sparrow");
+                r1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "background");
+                r1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                dm.enqueue(r1);
+                Toast.makeText(getApplicationContext(),"telechargement effectué",Toast.LENGTH_LONG).show();
 
             }
         });
