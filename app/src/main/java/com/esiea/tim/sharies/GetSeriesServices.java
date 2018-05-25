@@ -52,15 +52,17 @@ public class GetSeriesServices extends IntentService {
         URL url = null;
         try
         {
-            url = new URL("http://binouze.fabrigli.fr/bieres.json");
+            url = new URL("https://api.themoviedb.org/3/movie/upcoming?api_key=7b358b3487f8168783db21764c6f1a2e&language=fr-FR&page=1");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             Log.d("test", "handleActionSeries: apres connect");
             if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()) {
-                copyInputStreamToFile(conn.getInputStream(),
-                        new File(getCacheDir(), "series.json"));
+                File file = new File(getCacheDir(), "series.json");
+                copyInputStreamToFile(conn.getInputStream(),file);
                 Log.d("handleActionSeries", "Series json downloaded !");
+
+                Log.d("testjson", "handleActionSeries: "+ conn);
 
             }
         }catch(MalformedURLException e){

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GTDE</string>
+    <string name="app_name">Sharies</string>
     <string name="ajoutdette">Add a dept</string>
     <string name="ajoutevenement">Add an event</string>
     <string name="titrecredits">Credits</string>

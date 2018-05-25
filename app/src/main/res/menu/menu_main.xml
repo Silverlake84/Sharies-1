@@ -3,11 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/bouttonprofile"
-        android:title="Profile"
-        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        />
+
     <item
         android:id="@+id/buttonparametres"
         android:title="Parametres"

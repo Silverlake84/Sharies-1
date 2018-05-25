@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.ShareCompat;
@@ -22,10 +23,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -34,6 +38,7 @@ import org.json.JSONException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 
 import android.os.Bundle;
@@ -46,15 +51,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewClickListener{
 
     private static RecyclerView rv;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
     public class SeriesUpdate extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("onReiceve", getIntent().getAction());
-            rv.setAdapter(new SeriesAdapter(getSeriesFromFile()));
+            if (intent.getAction().equals(SERIES_UPDATE)) {
+                Log.d("onReiceve", "update received");
+                mAdapter = new SeriesAdapter(getSeriesFromFile());
+                rv.setAdapter(mAdapter);
+            }
         }
     }
     public static final String SERIES_UPDATE = "com.octip.cours.inf.SERIES_UPDATE";
@@ -67,12 +78,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(), new IntentFilter(SERIES_UPDATE));
+        IntentFilter intentFilter = new IntentFilter(SERIES_UPDATE);
+        LocalBroadcastManager.getInstance(this).registerReceiver(new SeriesUpdate(),intentFilter);
 
         rv = (RecyclerView) findViewById(R.id.rv_series);
 
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setHasFixedSize(true);
 
+        mLayoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(mLayoutManager);
 
         GetSeriesServices.startActionSeries(this);
         Log.d("test", "onCreate: fin ");
@@ -80,18 +94,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        Log.d("test", "onCreateOptionsMenu: appel");
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
 
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
 
-            case R.id.bouttonprofile:
-                startActivity(new Intent(this, ProfilActivity.class));
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
+
 
             case R.id.buttoncredits:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -114,14 +130,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public org.json.JSONArray getSeriesFromFile(){
+    public JSONArray getSeriesFromFile(){
         Log.d("test", "getSeriesFromFile: en  marche");
         try{
             InputStream is = new FileInputStream(getCacheDir() + "/" +"series.json");
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();
-            return new org.json.JSONObject(new String(buffer, "UTF-8")).getJSONArray("data");
+            Log.d("test", "getSeriesFromFile "+ Arrays.toString(buffer));
+            return new org.json.JSONObject(new String(buffer, "UTF-8")).getJSONArray("results");
 
         }catch(IOException e){
             e.printStackTrace();
@@ -130,6 +147,102 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             return new JSONArray();
         }
-
     }
+
+    @Override
+    public void recyclerViewListClicked(View v, int position) {
+    }
+
+    public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesHolder>  {
+        private JSONArray series;
+        private Context context;
+        private RecyclerViewClickListener itemListener;
+
+        public class SeriesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+            public TextView name;
+
+            public SeriesHolder(View itemView) {
+                super(itemView);
+
+                name = (TextView) itemView.findViewById(R.id.rv_series_element_name);
+            }
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        }
+
+        public SeriesAdapter(JSONArray js){
+            series = js;
+            this.context = context;
+            this.itemListener = itemListener;
+        }
+
+
+        @Override
+        public SeriesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Log.d("test", "onCreateViewHolder: debut");
+
+            LayoutInflater infl = LayoutInflater.from(parent.getContext());
+            View view = infl.inflate(R.layout.rv_series_element, parent, false);
+
+            Log.d("test", "onCreateViewHolder: fin");
+            SeriesHolder sh = new SeriesHolder(view);
+            return (sh);
+        }
+
+        @Override
+        public void onBindViewHolder(SeriesHolder holder, int position) {
+            Log.d("test", "onBindViewHolder: appel position :"+position);
+            try {
+
+                holder.name.setText(series.getJSONObject(position).getString("title"));
+                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date")));
+                Log.d("nameholder", "onBindViewHolder:" + holder.name);
+            } catch (JSONException e) {
+                Log.d("nameholder", "onBindViewHolder: bitch");
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return series.length();
+        }
+    }
+
+    public class presentationFilm implements View.OnClickListener
+    {
+        private String title;
+        private double vote_average;
+        private String poster_path;
+        private String overview;
+        private String release_date;
+
+        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date){
+
+            this.title = title;
+            this.vote_average = vote_average;
+            this.poster_path = poster_path;
+            this.overview = overview;
+            this.release_date = release_date;
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, FilmActivity.class );
+
+            intent.putExtra("title",title);
+            intent.putExtra("vote_average",vote_average);
+            intent.putExtra("poster_path",poster_path);
+            intent.putExtra("overview", overview);
+            intent.putExtra("release_date", release_date);
+
+            startActivity(intent);
+        }
+    }
+
 }
