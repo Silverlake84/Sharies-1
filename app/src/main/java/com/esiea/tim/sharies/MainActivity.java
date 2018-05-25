@@ -196,26 +196,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             try {
 
                 holder.name.setText(series.getJSONObject(position).getString("title"));
-
+                holder.name.setOnClickListener(new presentationFilm());
                 Log.d("nameholder", "onBindViewHolder:" + holder.name);
             } catch (JSONException e) {
                 Log.d("nameholder", "onBindViewHolder: bitch");
                 e.printStackTrace();
-
             }
-
         }
 
         @Override
         public int getItemCount() {
             return series.length();
         }
+    }
 
-
-
-
-
-
+    public class presentationFilm implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, FilmActivity.class );
+            startActivity(intent);
+        }
     }
 
 }

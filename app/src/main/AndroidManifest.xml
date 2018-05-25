@@ -26,8 +26,10 @@
         android:name="com.esiea.tim.sharies.creditActivity"
         android:parentActivityName=".MainActivity" />
 
-    <activity android:name="com.esiea.tim.sharies.SecondeActivity" />
-    <activity android:name="com.esiea.tim.sharies.classtest" />
+    <activity android:name=".SecondeActivity" />
+    <activity android:name=".classtest" />
+        <activity android:name=".FilmActivity"/>
+
 
     <service
         android:name=".GetSeriesServices"
