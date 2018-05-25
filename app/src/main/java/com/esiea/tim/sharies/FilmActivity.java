@@ -1,5 +1,7 @@
 package com.esiea.tim.sharies;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class FilmActivity extends AppCompatActivity {
+
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,7 @@ public class FilmActivity extends AppCompatActivity {
         String poster_path = getIntent().getExtras().getString("poster_path");
         String overview = getIntent().getExtras().getString("overview");
         String release_date = getIntent().getExtras().getString("release_date");
+        this.id = String.valueOf(getIntent().getExtras().getInt("id"));
 
         ImageView image = findViewById(R.id.affiche);
         TextView titre = findViewById(R.id.titre);
@@ -53,7 +59,11 @@ public class FilmActivity extends AppCompatActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
-
+            case R.id.buttoninfo:
+                Uri webpage = Uri.parse("https://www.themoviedb.org/movie/"+ id);
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

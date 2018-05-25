@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             try {
 
                 holder.name.setText(series.getJSONObject(position).getString("title"));
-                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date")));
+                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date"), series.getJSONObject(position).getInt("id")));
                 Log.d("nameholder", "onBindViewHolder:" + holder.name);
             } catch (JSONException e) {
                 Log.d("nameholder", "onBindViewHolder: bitch");
@@ -220,14 +220,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         private String poster_path;
         private String overview;
         private String release_date;
+        private int id;
 
-        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date){
+        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date,int id){
 
             this.title = title;
             this.vote_average = vote_average;
             this.poster_path = poster_path;
             this.overview = overview;
             this.release_date = release_date;
+            this.id = id;
 
         }
 
@@ -240,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             intent.putExtra("poster_path",poster_path);
             intent.putExtra("overview", overview);
             intent.putExtra("release_date", release_date);
+            intent.putExtra("id", id);
 
             startActivity(intent);
         }
