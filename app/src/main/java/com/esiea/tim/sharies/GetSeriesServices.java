@@ -52,7 +52,7 @@ public class GetSeriesServices extends IntentService {
         URL url = null;
         try
         {
-            url = new URL("https://api.deezer.com/user/5906315/playlists");
+            url = new URL("https://api.themoviedb.org/3/movie/upcoming?api_key=7b358b3487f8168783db21764c6f1a2e&language=fr-FR&page=1");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -62,7 +62,7 @@ public class GetSeriesServices extends IntentService {
                 copyInputStreamToFile(conn.getInputStream(),file);
                 Log.d("handleActionSeries", "Series json downloaded !");
 
-                Log.d("test", "handleActionSeries: "+ file);
+                Log.d("testjson", "handleActionSeries: "+ conn);
 
             }
         }catch(MalformedURLException e){

@@ -15,15 +15,9 @@ public class ProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil);
 
-        Button boutonsauvegarde;
-        boutonsauvegarde = (Button) findViewById(R.id.boutonsauvegarde);
-        boutonsauvegarde.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-    }
+        }
+
 
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){

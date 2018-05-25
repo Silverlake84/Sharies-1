@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             is.read(buffer);
             is.close();
             Log.d("test", "getSeriesFromFile "+ Arrays.toString(buffer));
-            return new org.json.JSONObject(new String(buffer, "UTF-8")).getJSONArray("data");
+            return new org.json.JSONObject(new String(buffer, "UTF-8")).getJSONArray("results");
 
         }catch(IOException e){
             e.printStackTrace();
@@ -194,17 +194,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         public void onBindViewHolder(SeriesHolder holder, int position) {
             Log.d("test", "onBindViewHolder: appel position :"+position);
             try {
-                holder.name.setText(series.getJSONObject(position).getString("name"));
 
+                holder.name.setText(series.getJSONObject(position).getString("title"));
+
+                Log.d("nameholder", "onBindViewHolder:" + holder.name);
             } catch (JSONException e) {
+                Log.d("nameholder", "onBindViewHolder: bitch");
                 e.printStackTrace();
+
             }
 
         }
 
         @Override
         public int getItemCount() {
-            return 200000;
+            return series.length();
         }
 
 
