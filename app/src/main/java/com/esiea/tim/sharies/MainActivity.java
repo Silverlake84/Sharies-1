@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             try {
 
                 holder.name.setText(series.getJSONObject(position).getString("title"));
-                holder.name.setOnClickListener(new presentationFilm());
+                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date")));
                 Log.d("nameholder", "onBindViewHolder:" + holder.name);
             } catch (JSONException e) {
                 Log.d("nameholder", "onBindViewHolder: bitch");
@@ -212,9 +212,32 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     public class presentationFilm implements View.OnClickListener
     {
+        private String title;
+        private double vote_average;
+        private String poster_path;
+        private String overview;
+        private String release_date;
+
+        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date){
+
+            this.title = title;
+            this.vote_average = vote_average;
+            this.poster_path = poster_path;
+            this.overview = overview;
+            this.release_date = release_date;
+
+        }
+
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MainActivity.this, FilmActivity.class );
+
+            intent.putExtra("title",title);
+            intent.putExtra("vote_average",vote_average);
+            intent.putExtra("poster_path",poster_path);
+            intent.putExtra("overview", overview);
+            intent.putExtra("release_date", release_date);
+
             startActivity(intent);
         }
     }
