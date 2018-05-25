@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             try {
 
                 holder.name.setText(series.getJSONObject(position).getString("title"));
-                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date"), series.getJSONObject(position).getInt("id")));
+                holder.name.setOnClickListener(new presentationFilm(series.getJSONObject(position).getString("title"),series.getJSONObject(position).getDouble("vote_average"),series.getJSONObject(position).getString("poster_path"),series.getJSONObject(position).getString("overview"),series.getJSONObject(position).getString("release_date"), series.getJSONObject(position).getInt("id"), series.getJSONObject(position).getString("backdrop_path")));
                 Log.d("nameholder", "onBindViewHolder:" + holder.name);
             } catch (JSONException e) {
                 Log.d("nameholder", "onBindViewHolder: bitch");
@@ -221,8 +221,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         private String overview;
         private String release_date;
         private int id;
+        private String backdrop_path;
 
-        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date,int id){
+        public presentationFilm(String title, double vote_average, String poster_path ,String overview, String release_date,int id, String backdrop_path){
 
             this.title = title;
             this.vote_average = vote_average;
@@ -230,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             this.overview = overview;
             this.release_date = release_date;
             this.id = id;
+            this.backdrop_path = backdrop_path;
 
         }
 
@@ -243,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             intent.putExtra("overview", overview);
             intent.putExtra("release_date", release_date);
             intent.putExtra("id", id);
+            intent.putExtra("backdrop_path", backdrop_path);
 
             startActivity(intent);
         }

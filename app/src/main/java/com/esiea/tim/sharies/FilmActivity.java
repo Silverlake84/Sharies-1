@@ -9,6 +9,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,18 +25,26 @@ public class FilmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film);
 
-        String title = getIntent().getExtras().getString("title");
         double vote_average = getIntent().getExtras().getDouble("vote_average");
+
+        String title = getIntent().getExtras().getString("title");
         String poster_path = getIntent().getExtras().getString("poster_path");
         String overview = getIntent().getExtras().getString("overview");
         String release_date = getIntent().getExtras().getString("release_date");
+        String backdrop_path = getIntent().getExtras().getString("backdrop_path");
+
         this.id = String.valueOf(getIntent().getExtras().getInt("id"));
 
+
         ImageView image = findViewById(R.id.affiche);
+
         TextView titre = findViewById(R.id.titre);
         TextView description = findViewById(R.id.description);
         TextView datedesortie = findViewById(R.id.datedesortie);
         TextView note = findViewById(R.id.note);
+
+        ImageButton imageButton1 = findViewById(R.id.image_dl1);
+        ImageButton imageButton2 = findViewById(R.id.image_dl2);
 
         Picasso.with(this).load("https://image.tmdb.org/t/p/w500"+poster_path).into(image);
         titre.setText(title);
@@ -43,6 +53,15 @@ public class FilmActivity extends AppCompatActivity {
         datedesortie.setText(release_date);
         note.setText(String.valueOf(vote_average));
 
+        Picasso.with(this).load("https://image.tmdb.org/t/p/w500"+poster_path).into(imageButton1);
+        Picasso.with(this).load("https://image.tmdb.org/t/p/w500"+backdrop_path).into(imageButton2);
+
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
