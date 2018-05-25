@@ -1,10 +1,8 @@
 package com.esiea.tim.sharies;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
@@ -15,20 +13,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class FilmActivity extends AppCompatActivity {
 
@@ -42,11 +28,10 @@ public class FilmActivity extends AppCompatActivity {
         double vote_average = getIntent().getExtras().getDouble("vote_average");
 
         String title = getIntent().getExtras().getString("title");
+        String poster_path = getIntent().getExtras().getString("poster_path");
         String overview = getIntent().getExtras().getString("overview");
         String release_date = getIntent().getExtras().getString("release_date");
-
-        final String poster_path = getIntent().getExtras().getString("poster_path");
-        final String backdrop_path = getIntent().getExtras().getString("backdrop_path");
+        String backdrop_path = getIntent().getExtras().getString("backdrop_path");
 
         this.id = String.valueOf(getIntent().getExtras().getInt("id"));
 
@@ -75,6 +60,7 @@ public class FilmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+<<<<<<< HEAD
                 Uri url = Uri.parse("https://image.tmdb.org/t/p/w500"+poster_path);
                 DownloadManager.Request r1 = new DownloadManager.Request(url);
                 r1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "poster");
@@ -97,6 +83,8 @@ public class FilmActivity extends AppCompatActivity {
                 dm.enqueue(r1);
                 Toast.makeText(getApplicationContext(),R.string.dl, Toast.LENGTH_LONG).show();
 
+=======
+>>>>>>> parent of d7fa54c... Merge pull request #4 from COLINtim/master
             }
         });
     }
@@ -122,22 +110,5 @@ public class FilmActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void copyInputStreamToFile(InputStream in, File file){
-        Log.d("test", "copyInputStreamToFile: debut");
-        try{
-            OutputStream out = new FileOutputStream(file);
-            byte[] buf = new byte[1024];
-            int len;
-            while((len=in.read(buf))>0){
-                out.write(buf,0,len);
-            }
-            out.close();
-            in.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        Log.d("test", "copyInputStreamToFile: fin");
     }
 }
