@@ -3,6 +3,7 @@ package com.esiea.tim.sharies;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ public class FilmActivity extends AppCompatActivity {
         Picasso.with(this).load("https://image.tmdb.org/t/p/w500"+poster_path).into(image);
         titre.setText(title);
         description.setText(overview);
+        description.setMovementMethod(new ScrollingMovementMethod());
         datedesortie.setText(release_date);
         note.setText(String.valueOf(vote_average));
 
@@ -51,6 +53,7 @@ public class FilmActivity extends AppCompatActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
